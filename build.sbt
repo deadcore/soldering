@@ -11,8 +11,6 @@ version := "0.1"
 
 scalaVersion := "2.12.4"
 
-releaseVersionBump := Bugfix
-
 releaseNextVersion := { ver => Version(ver).map(_.bumpBugfix.string).getOrElse(versionFormatError) }
 
 publishTo := Some(

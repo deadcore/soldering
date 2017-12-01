@@ -10,6 +10,8 @@ scalaVersion := "2.12.4"
 
 releaseNextVersion := { ver => Version(ver).map(_.bumpBugfix.string).getOrElse(versionFormatError) }
 
+credentials += Credentials(Path.userHome / ".sbt" / "pgp.credentials")
+
 publishTo := Some(
   if (isSnapshot.value)
     Opts.resolver.sonatypeSnapshots

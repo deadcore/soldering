@@ -40,3 +40,6 @@ jobs:
 
       # run tests!
       - run: cat /dev/null | sbt test:test
+
+      # run tests!
+      - run: cat /dev/null | sbt "release with-defaults"

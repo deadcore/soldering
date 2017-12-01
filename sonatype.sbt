@@ -6,8 +6,6 @@ licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
 homepage := Some(url("https://soldering.igu.io"))
 
-credentials += Credentials(Path.userHome / ".sbt" / "pgp.credentials")
-
 scmInfo := Some(
   ScmInfo(
     url("https://github.com/deadcore/soldering"),

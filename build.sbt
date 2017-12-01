@@ -1,4 +1,7 @@
 import ReleaseTransformations._
+import sbtrelease.ReleasePlugin.autoImport._
+import sbtrelease.ReleaseStateTransformations._
+import sbtrelease.{Version, _}
 
 name := "soldering"
 
@@ -7,6 +10,8 @@ version := "0.1"
 scalaVersion := "2.12.4"
 
 releaseVersionBump := sbtrelease.Version.Bump.Minor
+
+releaseNextVersion := { ver => Version(ver).map(_.bumpBugfix.string).getOrElse(versionFormatError) }
 
 publishTo := Some(
   if (isSnapshot.value)
@@ -18,7 +23,6 @@ publishTo := Some(
 releaseCrossBuild := true // true if you cross-build the project for multiple Scala versions
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
-  inquireVersions,
   runClean,
   runTest,
   setReleaseVersion,

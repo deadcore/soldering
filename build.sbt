@@ -1,6 +1,6 @@
-import ReleaseTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
 import sbtrelease.ReleaseStateTransformations._
+import sbtrelease.Version.Bump.Bugfix
 import sbtrelease.{Version, _}
 
 name := "soldering"
@@ -11,7 +11,7 @@ version := "0.1"
 
 scalaVersion := "2.12.4"
 
-releaseVersionBump := sbtrelease.Version.Bump.Minor
+releaseVersionBump := Bugfix
 
 releaseNextVersion := { ver => Version(ver).map(_.bumpBugfix.string).getOrElse(versionFormatError) }
 

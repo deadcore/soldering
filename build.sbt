@@ -1,6 +1,5 @@
 import sbtrelease.ReleasePlugin.autoImport._
 import sbtrelease.ReleaseStateTransformations._
-import sbtrelease.Version.Bump.Bugfix
 import sbtrelease.{Version, _}
 
 name := "soldering"

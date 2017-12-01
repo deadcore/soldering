@@ -5,6 +5,8 @@ import sbtrelease.{Version, _}
 
 name := "soldering"
 
+organization := "io.igu"
+
 version := "0.1"
 
 scalaVersion := "2.12.4"

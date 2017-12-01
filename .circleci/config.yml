@@ -42,4 +42,7 @@ jobs:
       - run: cat /dev/null | sbt test:test
 
       # run tests!
-      - run: cat /dev/null | sbt "release with-defaults"
+      - run:
+          - git config --global user.email "ci@deadcore.co.uk"
+          - git config --global user.name "Circle CI"
+          - cat /dev/null | sbt "release with-defaults"

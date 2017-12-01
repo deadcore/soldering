@@ -2,29 +2,37 @@ package soldering
 
 
 import io.reactivex.Flowable
+import io.reactivex.disposables.Disposable
 import io.reactivex.processors.{BehaviorProcessor, FlowableProcessor}
 import org.reactivestreams.Subscriber
 import soldering.Reducer.{Action, Reducer}
+import soldering.Reselect.Selector
 
 
-class Store[T](dispatcher: Dispatcher,
-               reducer: Reducer[T],
-               initialState: T) extends Flowable[T] {
+class Store[State](dispatcher: Dispatcher,
+               reducer: Reducer[State],
+               initialState: State) extends Flowable[State] {
 
-  private val state$: FlowableProcessor[T] = BehaviorProcessor.createDefault(initialState)
+  private val state$: FlowableProcessor[State] = BehaviorProcessor.createDefault(initialState)
 
-  private val eventStream: Unit = dispatcher.
-    scan(initialState, reducer(_, _)).
+  private val eventStream: Disposable = dispatcher.
+    scan(initialState, safeReduce).
     subscribe(state$ onNext _)
 
-  def select[X](selector: T => X): Flowable[X] = {
-    val slice$: Flowable[X] = state$.map(selector(_))
+  private def safeReduce(state: State, action: Action) = {
+    val reduction = reducer(state)
+    if (reduction.isDefinedAt(action)) reduction(action)
+    else state
+  }
+
+  def select[Slice](selector: Selector[State, Slice]): Flowable[Slice] = {
+    val slice$: Flowable[Slice] = state$.map(selector(_))
     slice$.distinctUntilChanged()
   }
 
   def dispatch(value: Action): Unit = dispatcher.dispatch(value)
 
-  def subscribeActual(s: Subscriber[_ >: T]): Unit = state$.subscribe(s)
+  def subscribeActual(s: Subscriber[_ >: State]): Unit = state$.subscribe(s)
 }
 
 object Store {

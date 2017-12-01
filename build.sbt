@@ -7,8 +7,6 @@ name := "soldering"
 
 organization := "io.igu"
 
-version := "0.1"
-
 scalaVersion := "2.12.4"
 
 releaseNextVersion := { ver => Version(ver).map(_.bumpBugfix.string).getOrElse(versionFormatError) }

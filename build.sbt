@@ -1,8 +1,12 @@
+import ReleaseTransformations._
+
 name := "soldering"
 
 version := "0.1"
 
 scalaVersion := "2.12.4"
+
+releaseVersionBump := sbtrelease.Version.Bump.Minor
 
 publishTo := Some(
   if (isSnapshot.value)
@@ -11,11 +15,9 @@ publishTo := Some(
     Opts.resolver.sonatypeStaging
 )
 
-import ReleaseTransformations._
-
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,              // : ReleaseStep
-  inquireVersions,                        // : ReleaseStep
+//  inquireVersions,                        // : ReleaseStep
   runClean,                               // : ReleaseStep
   runTest,                                // : ReleaseStep
   setReleaseVersion,                      // : ReleaseStep

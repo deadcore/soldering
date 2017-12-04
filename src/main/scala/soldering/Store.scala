@@ -10,8 +10,8 @@ import soldering.Reselect.Selector
 
 
 class Store[State](dispatcher: Dispatcher,
-               reducer: Reducer[State],
-               initialState: State) extends Flowable[State] {
+                   reducer: Reducer[State],
+                   initialState: State) extends Flowable[State] {
 
   private val state$: FlowableProcessor[State] = BehaviorProcessor.createDefault(initialState)
 

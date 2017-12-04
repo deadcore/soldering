@@ -13,7 +13,10 @@ object Reducer {
     val slice = selector(state)
     val reduction: PartialFunction[Action, T1] = reducer(slice)
 
-    PartialFunction(action => remapper(state, reduction(action)))
+    PartialFunction(action =>
+      if (reduction.isDefinedAt(action)) remapper(state, reduction(action))
+      else state
+    )
   }
 
   def combineReducers[State, T1, T2](combiner1: Combiner[State, T1],

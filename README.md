@@ -15,11 +15,15 @@ libraryDependencies ++= Seq(
 An example of how `soldering` can work with a single state:
 
 ```scala
+import soldering.Reducer.Reducer
+import soldering.Reselect.{Selector, createSelector}
+import soldering.{Reducer, Store}
+
 object Application extends App {
 
   case class State(name: String)
 
-  val reducer: State => PartialFunction[Action, State] = state => {
+  val reducer: Reducer[State] = state => {
       case ("SAVE_NAME", Some(name: String)) => state.copy(name = name)
     }
 
@@ -36,6 +40,10 @@ object Application extends App {
 An example of how `soldering` can work using multiple states and selectors:
 
 ```scala
+import soldering.Reducer.Reducer
+import soldering.Reselect.{Selector, createSelector}
+import soldering.{Reducer, Store}
+
 object Application extends App {
 
   case class Jedi(name: String, alliance: String)

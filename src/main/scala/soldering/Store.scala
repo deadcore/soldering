@@ -21,8 +21,13 @@ class Store[State](dispatcher: Dispatcher,
 
   private def safeReduce(state: State, action: Action) = {
     val reduction = reducer(state)
-    if (reduction.isDefinedAt(action)) reduction(action)
-    else state
+    val newStats: State = if (reduction.isDefinedAt(action)) {
+      reduction(action)
+    } else {
+      state
+    }
+
+    newStats
   }
 
   def select[Slice](selector: Selector[State, Slice]): Flowable[Slice] = {

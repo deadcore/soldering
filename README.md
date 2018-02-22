@@ -1,5 +1,5 @@
 # Soldering
-[![Maven](https://maven-badges.herokuapp.com/maven-central/io.igu/soldering/badge.svg)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.igu/soldering/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.igu/soldering)
 
 Soldering provides a mechanism to add state handling to scala in a reactive and predictable fashion
 
